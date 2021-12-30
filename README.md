@@ -3,6 +3,9 @@ This [dbt](https://github.com/dbt-labs/dbt) package contains macros that can be 
 ## Installation Instructions
 Check [dbt Hub](https://hub.getdbt.com/dbt-labs/dbt_utils/latest/) for the latest installation instructions, or [read the docs](https://docs.getdbt.com/docs/package-management) for more information on installing packages.
 
+## Compatibility matrix
+For compatibility details between versions of dbt-core and dbt-utils, [see this spreadsheet](https://docs.google.com/spreadsheets/d/1RoDdC69auAtrwiqmkRsgcFdZ3MdNpeKcJrWkmEpXVIs/edit#gid=0).
+
 ----
 ## Contents
 
@@ -726,7 +729,7 @@ group by 1,2,3
 ```
 
 #### star ([source](macros/sql/star.sql))
-This macro generates a list of all fields that exist in the `from` relation, excluding any fields listed in the `except` argument. The construction is identical to `select * from {{ref('my_model')}}`, replacing star (`*`) with the star macro. This macro also has an optional `relation_alias` argument that will prefix all generated fields with an alias.
+This macro generates a list of all fields that exist in the `from` relation, excluding any fields listed in the `except` argument. The construction is identical to `select * from {{ref('my_model')}}`, replacing star (`*`) with the star macro. This macro also has an optional `relation_alias` argument that will prefix all generated fields with an alias (`relation_alias`.`field_name`). The macro also has optional `prefix` and `suffix` arguments, which will be appropriately concatenated to each field name in the output (`prefix` ~ `field_name` ~ `suffix`).
 
 **Usage:**
 ```sql
@@ -1157,10 +1160,10 @@ dbt_utils.default__datediff
 
 ### Getting started with dbt
 
-- [What is dbt]?
-- Read the [dbt viewpoint]
-- [Installation]
-- Join the [chat][slack-url] on Slack for live questions and support.
+- [What is dbt](https://docs.getdbt.com/docs/introduction)?
+- Read the [dbt viewpoint](https://docs.getdbt.com/docs/about/viewpoint)
+- [Installation](https://docs.getdbt.com/dbt-cli/installation)
+- Join the [chat](https://www.getdbt.com/community/) on Slack for live questions and support.
 
 
 ## Code of Conduct

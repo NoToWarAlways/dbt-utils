@@ -1,18 +1,47 @@
+# dbt-utils v0.8.0
+## 🚨 Breaking changes
+- dbt ONE POINT OH is here! This version of dbt-utils requires _any_ version (minor and patch) of v1, which means far less need for compatibility releases in the future. 
+- The partition column in the `mutually_exclusive_ranges` test is now always called `partition_by_col`. This enables compatibility with `--store-failures` when multiple columns are concatenated together. If you have models built on top of the failures table, update them to reflect the new column name. ([#423](https://github.com/dbt-labs/dbt-utils/issues/423), [#430](https://github.com/dbt-labs/dbt-utils/pull/430))
+
+## Contributors:
+- [codigo-ergo-sum](https://github.com/codigo-ergo-sum) (#430)
+
+# dbt-utils 0.7.5
+🚨 This is a compatibility release in preparation for `dbt-core` v1.0.0 (🎉). Projects using dbt-utils 0.7.4 with dbt-core v1.0.0 can expect to see a deprecation warning. This will be resolved in dbt_utils v0.8.0.
+
+## Fixes
+- Regression in `get_column_values()` where the default would not be respected if the model didn't exist. ([#444](https://github.com/dbt-labs/dbt-utils/issues/444), [#448](https://github.com/dbt-labs/dbt-utils/pull/448))
+
+## Under the hood
+- get_url_host() macro now correctly handles URLs beginning with android-app:// (#426)
+
+## Contributors:
+- [foundinblank](https://github.com/foundinblank)
+
+# dbt-utils v0.7.4
+## Fixes
+- `get_column_values()` now works correctly with mixed-quoting styles on Snowflake ([#424](https://github.com/dbt-labs/dbt-utils/issues/424), [#440](https://github.com/dbt-labs/dbt-utils/pull/440))
+- Remove extra semicolon in `insert_by_period` materialization that was causing errors ([#439](https://github.com/dbt-labs/dbt-utils/pull/439))
+- Swap `limit 0` out for `{{ limit_zero() }}` on the `slugify()` tests to allow for compatibility with [tsql-utils](https://github.com/dbt-msft/tsql-utils) ([#437](https://github.com/dbt-labs/dbt-utils/pull/437))
+
+## Contributors:
+- [sean-rose](https://github.com/sean-rose)
+- [@swanderz](https://github.com/swanderz)
+
+
 # dbt-utils v0.7.4b1
-This is a compatibility release in preparation for `dbt-core` v1.0.0 (🎉). When dbt-core 1.0.0 hits release candidate status, we will release the final version of 0.7.4
-
-🚨 Projects using utils 0.7.4 with Core 1.0.0 can expect to see a deprecation warning. This will be resolved in 0.8.0 of dbt_utils alongside the final version of 1.0.0.
-
 :rotating_light:🚨 We have renamed the `master` branch to `main`. If you have a local version of `dbt-utils`, you will need to update to the new branch. See the [GitHub docs](https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-branches-in-your-repository/renaming-a-branch#updating-a-local-clone-after-a-branch-name-changes) for more details.
 
 ## Under the hood
 - Bump `require-dbt-version` to have an upper bound of `'<=1.0.0'`.
 - Url link fixes within the README for `not_constant`, `dateadd`, `datediff` and updated the header `Logger` to `Jinja Helpers`. ([#431](https://github.com/dbt-labs/dbt-utils/pull/431))
 - Fully qualified a `cte_name.*` in the `equality` test to avoid an Exasol error ([#420](https://github.com/dbt-labs/dbt-utils/pull/420))
+- `get_url_host()` macro now correctly handles URLs beginning with `android-app://` ([#426](https://github.com/dbt-labs/dbt-utils/pull/426))
 
 ## Contributors:
 - [joemarkiewicz](https://github.com/fivetran-joemarkiewicz)
 - [TimoKruth](https://github.com/TimoKruth)
+- [foundinblank](https://github.com/foundinblank)
 
 # dbt-utils v0.7.3
 
@@ -93,6 +122,7 @@ If you were relying on the position to match up your optional arguments, this ma
 ## Under the hood
 * Update the default implementation of concat macro to use `||` operator ([#373](https://github.com/fishtown-analytics/dbt-utils/pull/314) from [@ChristopheDuong](https://github.com/ChristopheDuong)). Note this may be a breaking change for adapters that support `concat()` but not `||`, such as Apache Spark.
 - Use `power()` instead of `pow()` in `generate_series()` and `haversine_distance()` as they are synonyms in most SQL dialects, but some dialects only have `power()` ([#354](https://github.com/fishtown-analytics/dbt-utils/pull/354) from [@swanderz](https://github.com/swanderz))
+- Make `get_column_values` return the default value passed as a parameter instead of an empty string before compilation ([#304](https://github.com/dbt-labs/dbt-utils/pull/386) from [@jmriego](https://github.com/jmriego)
 
 # dbt-utils v0.6.6
 
